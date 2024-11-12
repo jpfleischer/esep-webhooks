@@ -17,14 +17,14 @@ namespace EsepWebhook
         /// <param name="input">The GitHub webhook payload in JSON format.</param>
         /// <param name="context">The Lambda context for logging and environment details.</param>
         /// <returns>The response from Slack or an error message.</returns>
-        public string FunctionHandler(string input, ILambdaContext context)
+        public string FunctionHandler(object input, ILambdaContext context)
         {
             context.Logger.LogInformation($"FunctionHandler received: {input}");
 
             try
             {
                 // Parse JSON input
-                dynamic json = JsonConvert.DeserializeObject<dynamic>(input);
+                dynamic json = JsonConvert.DeserializeObject<dynamic>(input.ToString());
 
                 // Extract the issue URL
                 string issueUrl = json.issue?.html_url;
